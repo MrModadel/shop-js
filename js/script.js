@@ -99,6 +99,7 @@ let Effect = document.querySelector('.burger-effect');
 let mabal = document.querySelector('.main__burger-mn');
 let nety = document.querySelector('.nety');
 let see = document.querySelector('.see-box');
+
 btnsopen.forEach(btn => {
    btn.onclick = () => {
       re(cart)
@@ -150,8 +151,10 @@ function re(arr) {
    let priceAll = document.querySelectorAll('.price-box__price span , .total__price span');
    let numder = document.querySelector('.price-box__text span');
    let numders = {};
+   let count = 0;
    for (let i of arrOne) {
       let n = 1;
+      count++;
       let doc = document;
       let itemBuy = doc.createElement('div');
       let itemBuy__img = doc.createElement('img');
@@ -215,6 +218,7 @@ function re(arr) {
       num__spanOne.onclick = () => {
          if (n > 1) {
             n--;
+            count++;
             num__look.innerText = n;
             blDown__rightText.innerHTML = `${(Math.round((+blDown__right_span.innerHTML * n) * 100) / 100).toFixed(2)}cyм`;
             numders[i.id] = +blDown__right_span.innerHTML * n;
@@ -225,10 +229,12 @@ function re(arr) {
             priceAll.forEach(item => {
                item.innerText = (Math.round(total * 100) / 100).toFixed(2);
             })
+            numder.innerHTML = `(${count})`;
          }
       }
       num__spanTwo.onclick = () => {
          n++;
+         count++;
          num__look.innerText = n;
          blDown__rightText.innerHTML = `${(Math.round((+blDown__right_span.innerHTML * n) * 100) / 100).toFixed(2)}cyм`;
          numders[i.id] = +blDown__right_span.innerHTML * n;
@@ -239,6 +245,7 @@ function re(arr) {
          priceAll.forEach(item => {
             item.innerText = (Math.round(total * 100) / 100).toFixed(2);
          })
+         numder.innerHTML = `(${count})`;
       }
       blDown__center.append(num);
       num.append(num__spanOne, num__look, num__spanTwo);
@@ -258,6 +265,8 @@ function re(arr) {
          priceAll.forEach(item => {
             item.innerText = (Math.round(total * 100) / 100).toFixed(2);
          })
+         count -= +num__look.innerHTML;
+         numder.innerHTML = `(${count})`;
          if (see.innerHTML === '') {
             mabal.style.opacity = '0';
             mabal.style.width = '16%';
@@ -273,5 +282,5 @@ function re(arr) {
       }
       see.append(itemBuy)
    }
-   numder.innerText = `(${see.querySelectorAll('.item-buy').length})`;
+   numder.innerHTML = `(${count})`
 }
