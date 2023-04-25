@@ -257,17 +257,7 @@ function re(arr) {
       blDown__rightText.innerHTML = `${blDown__right_span.innerHTML}cyм`;
       trash.onclick = () => {
          itemBuy.remove();
-         delete numders[i.id];
-         let total = 0;
-         for (let i in numders) {
-            total += numders[i];
-         }
-         priceAll.forEach(item => {
-            item.innerText = (Math.round(total * 100) / 100).toFixed(2);
-         })
-         count -= +num__look.innerHTML;
-         numder.innerHTML = `(${count})`;
-         if (see.innerHTML === '') {
+         if (see.querySelector('.item-buy')===null) {
             mabal.style.opacity = '0';
             mabal.style.width = '16%';
             setTimeout(i => {
@@ -278,6 +268,17 @@ function re(arr) {
                   nety.style.width = '50%';
                }, 300)
             }, 300)
+         } else {
+            delete numders[i.id];
+            let total = 0;
+            for (let i in numders) {
+               total += numders[i];
+            }
+            priceAll.forEach(item => {
+               item.innerText = (Math.round(total * 100) / 100).toFixed(2);
+            })
+            count -= +num__look.innerHTML;
+            numder.innerHTML = `(${count})`;
          }
       }
       see.append(itemBuy)
