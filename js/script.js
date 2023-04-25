@@ -219,7 +219,6 @@ function re(arr) {
          if (n > 1) {
             n--;
             count--;
-            
             num__look.innerText = n;
             blDown__rightText.innerHTML = `${(Math.round((+blDown__right_span.innerHTML * n) * 100) / 100).toFixed(2)}cyм`;
             numders[i.id] = +blDown__right_span.innerHTML * n;
