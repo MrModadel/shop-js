@@ -2,59 +2,98 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="fonts/stylesheet.css">
-    <title>Document</title>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+   <link rel="stylesheet" href="css/style.min.css">
+   <link rel="stylesheet" href="fonts/stylesheet.css">
+   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body>
-    <!-- <section class="shop">
-        <div class="container">
+   <div class="wrapper">
+
+
+      <section class="shop">
+         <div class="container">
             <div class="card_info">
-                <div class="card_text">
-                    <h1>В корзине: <span class="change">1</span> товар</h1>
-                </div>
-                <div class="card_button">
-                    <button class="button">Показать первые 5</button>
-                    <button class="button">Показать все</button>
-                </div>
+               <div class="card_text">
+                  <h1>В корзине: <span class="change">1</span> товар</h1>
+               </div>
+               <div class="card_button">
+                  <button class="button five">Показать первые 5</button>
+                  <button class="button all">Показать все</button>
+                  <button class="button all" data-open>Карзина</button>
+               </div>
             </div>
-            <div class="shop_card">
-                <div class="shop_item">
-                    <div class="item_img">
-                        <img src="img/back.svg" alt="">
-                    </div>
-                    <div class="item_text">
-                        <h2>MEN’S CLOTHING (120)</h2>
-                        <p>Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15
-                            inches) in the padded sleeve, your everyday
-                        </p>
-                    </div>
-                    <div class="item_info">
-                        <div class="info_elem">
-                            <img src="img/dollar.svg" alt="">
-                            <span>109</span>
+            <div class="shop_card"></div>
+            <center>
+               <br>
+               <br>
+               <br>
+               <h1>CART</h1>
+            </center>
+         </div>
+      </section>
+
+      <section class="main">
+         <div class="container">
+            <div class="main__container">
+               <div class="burger-effect"></div>
+               <div class="main__burger-mn burger-mn">
+                  <div class="burger-mn__box">
+                     <p class="burger-mn__title">
+                        Меню
+                     </p>
+                     <span class="material-icons" data-close>
+                        close
+                     </span>
+                  </div>
+                  <div class="see-box">
+
+                  </div>
+                  <hr class="burder-mn__hr">
+                  <div class="burder-mn__title">Ваш заказ:</div>
+                  <div class="burder-mn__price-box price-box">
+                     <div class="price-box__text">Товары <span>()</span>:</div>
+                     <div class="price-box__price"><span>0</span>сум</div>
+                  </div>
+                  <div class="dostav">
+                     Доставка <span>&nbsp;20&nbsp;</span> апреля (Завтра)
+                  </div>
+                  <div class="burder-mn__down-box">
+                     <div class="burder-mn__total total">
+                        <div class="total__text">
+                           Итог:
                         </div>
-                        <div class="info_elem">
-                            <img src="img/star.svg" alt="">
-                            <span>3,9</span>
+                        <div class="total__price">
+                           <span>0</span>сум
                         </div>
-                        <div class="info_elem">
-                            <img src="img/object.svg" alt="">
-                            <span>120</span>
-                        </div>
-                    </div>
-                    <div class="item_button">
-                        <button>В избранное</button>
-                    </div>
-                </div>
+                     </div>
+                  </div>
+                  <div class="btn-box">
+                     <button class="burder-mn__btn">
+                        Перейти к оформлению
+                     </button>
+                  </div>
+               </div>
             </div>
-        </div>
-    </section> -->
-    <script src="js/script.js"></script>
+            <div class="nety" style="display: none;">
+               <div class="burger-mn__box pos">
+                  <span class="material-icons" data-close>
+                     close
+                  </span>
+               </div>
+               <div class="nety__text">
+                  Карзина пустая
+               </div>
+            </div>
+         </div>
+      </section>
+
+   </div>
+   <script type="module" src="js/script.js"></script>
 </body>
 
 </html>
