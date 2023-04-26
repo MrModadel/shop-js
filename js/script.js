@@ -76,20 +76,27 @@ function reload(arr) {
       info_elem_s.prepend(img_s, span_s)
       info_elem_o.prepend(img_o, span_o)
       item_button.prepend(buttons)
-
-
+      if (cart.includes(item.id)) {
+         buttons.classList.add('active_btn');
+         buttons.innerText = 'Добавлено';
+      } else {
+         buttons.classList.remove('active_btn');
+         buttons.innerText = 'В избранное';
+      }
       // functions
       buttons.onclick = () => {
-         buttons.classList.toggle('active_btn')
+         buttons.classList.toggle('active_btn');
          if (cart.includes(item.id)) {
             cart = cart.filter(el => el !== item.id);
+            buttons.innerText = 'В избранное';
          } else {
-            cart.push(item.id)
+            cart.push(item.id);
+            buttons.innerText = 'Добавлено';
          }
-         change.innerHTML = cart.length
-      }
-   }
-}
+         change.innerHTML = cart.length;
+      };
+   };
+};
 
 reload(data);
 //modal
@@ -139,149 +146,127 @@ btnsclose.forEach(btn => {
       }, 300)
    }
 })
-function re(arr) {
-   let arrOne = [];
-   for (let item of data) {
-      for (let el of arr) {
-         if (item.id === el) {
-            arrOne.push(item)
+function re() {
+   see.innerHTML = ''
+   for (let i of data) {
+      let priceAll = document.querySelectorAll('.price-box__price span , .total__price span');
+      let numder = document.querySelector('.price-box__text span');
+      let numders = {};
+      for (let id of cart) {
+         if (i.id === id) {
+            i.qt = 1;
+            let doc = document;
+            let itemBuy = doc.createElement('div');
+            let itemBuy__img = doc.createElement('img');
+            let itemBuy__container = doc.createElement('div');
+            let itemBuy__up = doc.createElement('div');
+            let itemBuy__down = doc.createElement('div');
+            let trash = doc.createElement('div');
+            let itemBuy__up_title = doc.createElement('div');
+            let blDown__left = doc.createElement('div');
+            let textBox = doc.createElement('div');
+            let textBox_span = doc.createElement('span');
+            let blDown__center = doc.createElement('div');
+            let num = doc.createElement('div');
+            let num__spanOne = doc.createElement('span');
+            let num__look = doc.createElement('div');
+            let num__spanTwo = doc.createElement('span');
+            let blDown__right = doc.createElement('div');
+            let price = doc.createElement('div');
+            //style
+            itemBuy.classList.add('item-buy');
+            itemBuy__img.classList.add('item-buy__img');
+            itemBuy__container.classList.add('item-buy__container');
+            //up
+            itemBuy__up.classList.add('item-buy__up');
+            trash.classList.add('trash');
+            itemBuy__up_title.classList.add('item-buy__up-title');
+            //down
+            itemBuy__down.className = "item-buy__down bl-down";
+            blDown__left.classList.add('bl-down__left');
+            blDown__center.classList.add('bl-down__center');
+            blDown__right.classList.add('bl-down__right');
+            //left
+            textBox.classList.add('text-box');
+            //center
+            num.classList.add('numder');
+            num__spanOne.classList.add('material-icons');
+            num__spanTwo.classList.add('material-icons');
+            num__look.classList.add('numder__look');
+            //right
+            price.classList.add('bl-down__right-text');
+            //inner
+            itemBuy.append(itemBuy__img, itemBuy__container);
+            itemBuy__img.src = i.image;
+            itemBuy__container.append(itemBuy__up, itemBuy__down);
+            itemBuy__up.append(itemBuy__up_title, trash);
+            itemBuy__up_title.innerText = i.title;
+            trash.innerHTML = `<span class="material-icons">delete</span> Удалить`;
+            itemBuy__down.append(blDown__left, blDown__center, blDown__right);
+            blDown__left.append(textBox);
+            textBox_span.innerHTML = 'INFO';
+            textBox.innerHTML = `Продавец: ${textBox_span.innerHTML}`;
+            numders[id] += i.price;
+            num__spanOne.onclick = () => {
+               if (i.qt > 1) {
+                  i.qt--;
+                  price.innerText = `${(i.price * i.qt).toFixed(2)}cyм`;
+                  num__look.innerHTML = i.qt;
+                  total();
+               }
+            }
+            num__spanTwo.onclick = () => {
+               if (i.qt < i.rating.count) {
+                  i.qt++;
+                  price.innerText = `${(i.price * i.qt).toFixed(2)}cyм`;
+                  num__look.innerHTML = i.qt;
+                  total();
+               }
+            }
+            blDown__center.append(num);
+            num.append(num__spanOne, num__look, num__spanTwo);
+            num__spanOne.innerHTML = 'remove';
+            num__spanTwo.innerHTML = 'add';
+            num__look.innerHTML = i.qt;
+            blDown__right.append(price);
+            price.innerHTML = `${i.price}cyм`;
+            trash.onclick = () => {
+               cart = cart.filter(el =>
+                  el !== id
+               );
+               re()
+               reload(data)
+               if (see.querySelector('.item-buy') === null) {
+                  mabal.style.opacity = '0';
+                  mabal.style.width = '16%';
+                  setTimeout(() => {
+                     mabal.style.display = 'none';
+                     nety.style.display = 'flex';
+                     setTimeout(i => {
+                        nety.style.opacity = '.9';
+                        nety.style.width = '50%';
+                     }, 300)
+                  }, 300);
+                  change.innerHTML = cart.length;
+               }
+            }
+            see.append(itemBuy);
+            function total() {
+               let totalPrice = 0;
+               for (let item of data) {
+                  for (let id of cart) {
+                     if (item.id === id) {
+                        totalPrice += item.price * item.qt;
+                     }
+                  }
+               }
+               priceAll.forEach(el => {
+                  el.innerText = totalPrice.toFixed(2);
+               })
+            }
+            total()
          }
       }
    }
-   let priceAll = document.querySelectorAll('.price-box__price span , .total__price span');
-   let numder = document.querySelector('.price-box__text span');
-   let numders = {};
-   let count = 0;
-   for (let i of arrOne) {
-      let n = 1;
-      count++;
-      let doc = document;
-      let itemBuy = doc.createElement('div');
-      let itemBuy__img = doc.createElement('img');
-      let itemBuy__container = doc.createElement('div');
-      let itemBuy__up = doc.createElement('div');
-      let itemBuy__down = doc.createElement('div');
-      let trash = doc.createElement('div');
-      let itemBuy__up_title = doc.createElement('div');
-      let blDown__left = doc.createElement('div');
-      let textBox = doc.createElement('div');
-      let textBox_span = doc.createElement('span');
-      let blDown__center = doc.createElement('div');
-      let num = doc.createElement('div');
-      let num__spanOne = doc.createElement('span');
-      let num__look = doc.createElement('div');
-      let num__spanTwo = doc.createElement('span');
-      let blDown__right = doc.createElement('div');
-      let blDown__rightText = doc.createElement('div');
-      let blDown__right_span = doc.createElement('span');
-      //style
-      itemBuy.classList.add('item-buy');
-      itemBuy__img.classList.add('item-buy__img');
-      itemBuy__container.classList.add('item-buy__container');
-      //up
-      itemBuy__up.classList.add('item-buy__up');
-      trash.classList.add('trash');
-      itemBuy__up_title.classList.add('item-buy__up-title');
-      //down
-      itemBuy__down.className = "item-buy__down bl-down";
-      blDown__left.classList.add('bl-down__left');
-      blDown__center.classList.add('bl-down__center');
-      blDown__right.classList.add('bl-down__right');
-      //left
-      textBox.classList.add('text-box');
-      //center
-      num.classList.add('numder');
-      num__spanOne.classList.add('material-icons');
-      num__spanTwo.classList.add('material-icons');
-      num__look.classList.add('numder__look');
-      //right
-      blDown__rightText.classList.add('bl-down__right-text');
-      //inner
-      itemBuy.append(itemBuy__img, itemBuy__container);
-      itemBuy__img.src = i.image;
-      itemBuy__container.append(itemBuy__up, itemBuy__down);
-      itemBuy__up.append(itemBuy__up_title, trash);
-      itemBuy__up_title.innerText = i.title;
-      trash.innerHTML = `<span class="material-icons">delete</span> Удалить`;
-      itemBuy__down.append(blDown__left, blDown__center, blDown__right);
-      blDown__left.append(textBox);
-      textBox_span.innerHTML = 'INFO';
-      textBox.innerHTML = `Продавец: ${textBox_span.innerHTML}`;
-      numders[i.id] = i.price;
-      let total = 0;
-      for (let i in numders) {
-         total += numders[i];
-      }
-      priceAll.forEach(item => {
-         item.innerText = (Math.round(total * 100) / 100).toFixed(2);
-      })
-      num__spanOne.onclick = () => {
-         if (n > 1) {
-            n--;
-            count--;
-            num__look.innerText = n;
-            blDown__rightText.innerHTML = `${(Math.round((+blDown__right_span.innerHTML * n) * 100) / 100).toFixed(2)}cyм`;
-            numders[i.id] = +blDown__right_span.innerHTML * n;
-            let total = 0;
-            for (let i in numders) {
-               total += numders[i];
-            }
-            priceAll.forEach(item => {
-               item.innerText = (Math.round(total * 100) / 100).toFixed(2);
-            })
-            numder.innerHTML = `(${count})`;
-         }
-      }
-      num__spanTwo.onclick = () => {
-         n++;
-         count++;
-         num__look.innerText = n;
-         blDown__rightText.innerHTML = `${(Math.round((+blDown__right_span.innerHTML * n) * 100) / 100).toFixed(2)}cyм`;
-         numders[i.id] = +blDown__right_span.innerHTML * n;
-         let total = 0;
-         for (let i in numders) {
-            total += numders[i];
-         }
-         priceAll.forEach(item => {
-            item.innerText = (Math.round(total * 100) / 100).toFixed(2);
-         })
-         numder.innerHTML = `(${count})`;
-      }
-      blDown__center.append(num);
-      num.append(num__spanOne, num__look, num__spanTwo);
-      num__spanOne.innerHTML = 'remove';
-      num__spanTwo.innerHTML = 'add';
-      num__look.innerHTML = n;
-      blDown__right.append(blDown__rightText);
-      blDown__right_span.innerText = i.price
-      blDown__rightText.innerHTML = `${blDown__right_span.innerHTML}cyм`;
-      trash.onclick = () => {
-         itemBuy.remove();
-         if (see.querySelector('.item-buy')===null) {
-            mabal.style.opacity = '0';
-            mabal.style.width = '16%';
-            setTimeout(i => {
-               mabal.style.display = 'none';
-               nety.style.display = 'flex';
-               setTimeout(i => {
-                  nety.style.opacity = '.9';
-                  nety.style.width = '50%';
-               }, 300)
-            }, 300)
-         } else {
-            delete numders[i.id];
-            let total = 0;
-            for (let i in numders) {
-               total += numders[i];
-            }
-            priceAll.forEach(item => {
-               item.innerText = (Math.round(total * 100) / 100).toFixed(2);
-            })
-            count -= +num__look.innerHTML;
-            numder.innerHTML = `(${count})`;
-         }
-      }
-      see.append(itemBuy)
-   }
-   numder.innerHTML = `(${count})`
 }
+
